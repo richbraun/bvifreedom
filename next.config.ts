@@ -1,16 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  cacheComponents: false,
   turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
+    rules: { "*.css": { loaders: ["@tailwindcss/turbopack"], as: "*.css" } },
+  },
+  images: { remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }] },
+  async headers() {
+    return [{ source: "/llms.txt", headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }] }];
   },
 };
 
