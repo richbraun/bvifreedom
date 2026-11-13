@@ -1,23 +1,54 @@
 "use client";
 import { useState } from "react";
+import { upload } from "@vercel/blob/client";
+
+const MAX_FILES = 5;
+const MAX_MB = 20;
 
 export default function UploadForm() {
+  const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [progress, setProgress] = useState("");
   const [msg, setMsg] = useState("");
 
   function onFiles(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files ?? []).slice(0, 5);
-    setPreviews(files.map((f) => URL.createObjectURL(f)));
+    const list = Array.from(e.target.files ?? []).slice(0, MAX_FILES);
+    setFiles(list);
+    setPreviews(list.map((f) => URL.createObjectURL(f)));
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!files.length) return;
+    const fd = new FormData(e.currentTarget);
+    if ((fd.get("website") as string)?.trim()) { setState("done"); setMsg("Thanks!"); return; }
+    const big = files.find((f) => f.size > MAX_MB * 1024 * 1024);
+    if (big) { setState("error"); setMsg(`${big.name} is over ${MAX_MB} MB.`); return; }
+
     setState("sending");
-    const res = await fetch("/api/photos", { method: "POST", body: new FormData(e.currentTarget) });
-    const j = await res.json().catch(() => ({}));
-    if (res.ok) { setState("done"); setMsg(`${j.count} photo${j.count === 1 ? "" : "s"} received — thank you!`); }
-    else { setState("error"); setMsg(j.error ?? "Upload failed. Try fewer or smaller photos."); }
+    try {
+      const urls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        setProgress(`Uploading ${i + 1} of ${files.length}…`);
+        const f = files[i];
+        const ext = (f.name.split(".").pop() || "jpg").toLowerCase();
+        const blob = await upload(`guests/${Date.now()}.${ext}`, f, { access: "public", handleUploadUrl: "/api/photos/upload", contentType: f.type || "image/jpeg" });
+        urls.push(blob.url);
+      }
+      setProgress("Saving…");
+      const res = await fetch("/api/photos", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ urls, guest_name: fd.get("guest_name"), sailed_week: fd.get("sailed_week"), caption: fd.get("caption") }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(j.error ?? "Could not save photos.");
+      setState("done");
+      setMsg(`${j.count} photo${j.count === 1 ? "" : "s"} received — thank you!`);
+    } catch (err) {
+      setState("error");
+      setMsg((err as Error).message || "Upload failed. Try fewer or smaller photos.");
+    }
   }
 
   if (state === "done") {
@@ -33,7 +64,7 @@ export default function UploadForm() {
   return (
     <form onSubmit={onSubmit} className="card grid gap-4">
       <div>
-        <label htmlFor="photos">Photos (up to 5, 12 MB each)</label>
+        <label htmlFor="photos">Photos (up to {MAX_FILES}, {MAX_MB} MB each)</label>
         <input id="photos" name="photos" type="file" accept="image/*" multiple required onChange={onFiles}
           className="file:mr-3 file:rounded-full file:border-0 file:bg-navy file:px-4 file:py-2 file:text-white" />
       </div>
@@ -61,7 +92,7 @@ export default function UploadForm() {
       </div>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <button className="btn-primary justify-self-start" disabled={state === "sending"}>
-        {state === "sending" ? "Uploading…" : "Upload photos"}
+        {state === "sending" ? progress || "Uploading…" : "Upload photos"}
       </button>
       {state === "error" && <p className="text-sm text-coral">{msg}</p>}
     </form>
