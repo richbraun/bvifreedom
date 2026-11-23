@@ -23,7 +23,7 @@ export default async function Home() {
         <div className="container-x flex min-h-[92vh] flex-col justify-end pb-36 pt-44 md:pb-40">
           <p className="kicker rise text-white/90">A private catamaran charter in the British Virgin Islands</p>
           <h1 className="rise-2 mt-3 max-w-5xl text-[3.2rem] leading-[0.98] md:text-[5.5rem]">
-            Seven days. Sixty islands. One boat called Freedom.
+            Up to 10 crew. Sixty islands. One boat called Freedom.
           </h1>
           <p className="rise-3 lead mt-6 max-w-xl !text-white/85">
             A {BOAT.year} Fountaine Pajot Aura 51 with five private cabins, sailed by you or by a captain we arrange.
