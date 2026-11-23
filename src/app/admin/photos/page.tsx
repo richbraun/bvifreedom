@@ -21,12 +21,12 @@ async function login(formData: FormData) {
 export default async function AdminPhotos() {
   if (!(await isAdmin())) {
     return (
-      <section className="container-x max-w-sm py-24">
-        <h1 className="text-2xl font-semibold">Admin</h1>
-        <form action={login} className="card mt-6 grid gap-3">
+      <section className="container-narrow max-w-sm pb-24 pt-36">
+        <h1 className="text-3xl">Admin</h1>
+        <form action={login} className="panel mt-6 grid gap-3">
           <label htmlFor="password">Password</label>
           <input id="password" name="password" type="password" required />
-          <button className="btn-navy">Sign in</button>
+          <button className="btn-ink">Sign in</button>
         </form>
       </section>
     );
@@ -34,13 +34,13 @@ export default async function AdminPhotos() {
   const rows = (await sql()`select id, url, caption, guest_name, sailed_week, status, created_at from guest_photos order by (status='pending') desc, created_at desc limit 500`) as GuestPhoto[];
   const pending = rows.filter((r) => r.status === "pending").length;
   return (
-    <section className="container-x py-12">
+    <section className="container-x pb-16 pt-32">
       <div className="flex items-end justify-between">
         <div>
-          <p className="eyebrow">Admin</p>
-          <h1 className="mt-2 text-3xl font-semibold">Guest photos</h1>
+          <p className="kicker">Admin</p>
+          <h1 className="mt-2 text-4xl">Guest photos</h1>
         </div>
-        <div className="text-sm text-navy/70">{pending} pending · <a className="text-sea underline" href="/api/qr?size=2000" target="_blank">Download boat QR (PNG)</a></div>
+        <div className="text-sm text-ink/70">{pending} pending · <a className="text-lagoon-deep underline" href="/api/qr?size=2000" target="_blank">Download boat QR (PNG)</a></div>
       </div>
       <ModerationList initial={rows} />
     </section>

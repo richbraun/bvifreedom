@@ -17,15 +17,15 @@ export default function InquiryForm() {
 
   if (state === "sent") {
     return (
-      <div className="card text-center">
-        <div className="display text-2xl font-semibold">Thank you — we'll be in touch.</div>
-        <p className="mt-2 text-navy/70">We'll confirm Freedom's availability for your dates within one business day.</p>
+      <div className="panel text-center">
+        <div className="display text-2xl">Thank you — we'll be in touch.</div>
+        <p className="mt-2 text-ink/70">We'll confirm Freedom's availability for your dates within one business day.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="card grid gap-4 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="panel grid gap-4 sm:grid-cols-2">
       <div>
         <label htmlFor="first_name">First name *</label>
         <input id="first_name" name="first_name" required autoComplete="given-name" />
@@ -66,10 +66,10 @@ export default function InquiryForm() {
       {/* honeypot */}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div className="sm:col-span-2 flex items-center justify-between gap-4">
-        <p className="text-xs text-navy/55">We only use your details to reply to this inquiry.</p>
+        <p className="text-xs text-ink/55">We only use your details to reply to this inquiry.</p>
         <button className="btn-primary" disabled={state === "sending"}>{state === "sending" ? "Sending…" : "Send inquiry"}</button>
       </div>
-      {state === "error" && <p className="sm:col-span-2 text-sm text-coral">{err}</p>}
+      {state === "error" && <p className="sm:col-span-2 text-sm text-red-700">{err}</p>}
     </form>
   );
 }

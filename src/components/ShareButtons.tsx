@@ -31,13 +31,13 @@ export default function ShareButtons({ url, imageUrl, caption }: Props) {
 
   return (
     <div className="flex flex-wrap gap-2 text-xs">
-      {canNative && <button onClick={nativeShare} className="rounded-full bg-navy px-3 py-1.5 text-white">Share / Instagram</button>}
+      {canNative && <button onClick={nativeShare} className="rounded-full bg-ink px-3 py-1.5 text-white">Share / Instagram</button>}
       <a className="rounded-full bg-[#1877F2] px-3 py-1.5 text-white" target="_blank" rel="noopener"
         href={`https://www.facebook.com/sharer/sharer.php?u=${enc(url)}&quote=${enc(text)}`}>Facebook</a>
       <a className="rounded-full bg-black px-3 py-1.5 text-white" target="_blank" rel="noopener"
         href={`https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(text)}`}>X</a>
-      <a className="rounded-full border border-navy/20 px-3 py-1.5" href={imageUrl} download target="_blank" rel="noopener">Download</a>
-      <button onClick={copy} className="rounded-full border border-navy/20 px-3 py-1.5">{copied ? "Copied!" : "Copy caption + link"}</button>
+      <a className="rounded-full border border-line px-3 py-1.5" href={imageUrl} download target="_blank" rel="noopener">Download</a>
+      <button onClick={copy} className="rounded-full border border-line px-3 py-1.5">{copied ? "Copied!" : "Copy caption + link"}</button>
     </div>
   );
 }

@@ -1,39 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0b2545;
-  --color-navy-deep: #071a33;
-  --color-sea: #0e7490;
-  --color-sea-light: #67c3d8;
-  --color-sand: #f6f1e7;
-  --color-sand-dark: #e8dfcf;
-  --color-coral: #e76f51;
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+  --color-ink: #0b1f3a;
+  --color-ink-deep: #071629;
+  --color-lagoon: #1399b0;
+  --color-lagoon-deep: #0f7f93;
+  --color-lagoon-pale: #eaf6f8;
+  --color-mist: #f5f8fa;
+  --color-sand: #f7f3ec;
+  --color-line: rgb(11 31 58 / 0.12);
+  --font-display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { background: #fff; color: var(--color-navy); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, .display { font-family: var(--font-display); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { background: #fff; color: var(--color-ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; line-height: 1.05; }
+  h2 { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
+  h3 { font-size: 1.5rem; }
+  p { max-width: 68ch; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--color-lagoon); outline-offset: 3px; }
   input, select, textarea {
-    width: 100%; border-radius: 0.5rem; border: 1px solid rgb(11 37 69 / 0.15); background: #fff;
-    padding: 0.75rem 1rem; color: var(--color-navy); outline: none;
+    width: 100%; border-radius: 0.375rem; border: 1px solid var(--color-line); background: #fff;
+    padding: 0.7rem 0.9rem; color: var(--color-ink); outline: none; font: inherit;
   }
-  input:focus, select:focus, textarea:focus { border-color: var(--color-sea); box-shadow: 0 0 0 3px rgb(14 116 144 / 0.2); }
-  label { display: block; margin-bottom: 0.25rem; font-size: 0.875rem; font-weight: 500; color: rgb(11 37 69 / 0.8); }
+  input:focus, select:focus, textarea:focus { border-color: var(--color-lagoon); box-shadow: 0 0 0 3px rgb(19 153 176 / 0.18); }
+  label { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; font-weight: 600; color: rgb(11 31 58 / 0.75); }
 }
 
-@utility container-x { margin-inline: auto; width: 100%; max-width: 72rem; padding-inline: 1.25rem; @media (min-width: 640px) { padding-inline: 2rem; } }
+@utility container-x { margin-inline: auto; width: 100%; max-width: 76rem; padding-inline: 1.25rem; @media (min-width: 640px) { padding-inline: 2.5rem; } }
+@utility container-narrow { margin-inline: auto; width: 100%; max-width: 44rem; padding-inline: 1.25rem; @media (min-width: 640px) { padding-inline: 2.5rem; } }
 
 @utility btn-base {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 9999px;
-  padding: 0.75rem 1.5rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.025em; transition: all .15s;
+  padding: 0.85rem 1.75rem; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em; transition: background-color .15s, color .15s, border-color .15s;
 }
-@utility btn-primary { @apply btn-base; background: var(--color-coral); color: #fff; &:hover { background: #d65f42; } }
-@utility btn-outline { @apply btn-base; border: 1px solid rgb(255 255 255 / 0.7); color: #fff; &:hover { background: #fff; color: var(--color-navy); } }
-@utility btn-navy { @apply btn-base; background: var(--color-navy); color: #fff; &:hover { background: var(--color-navy-deep); } }
-@utility eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-sea); }
-@utility card { border-radius: 1rem; background: #fff; padding: 1.5rem; box-shadow: 0 6px 30px -12px rgb(11 37 69 / 0.25); }
-@utility img-fallback { background: linear-gradient(135deg, #0e7490 0%, #0b2545 100%); }
-@utility prose-x { & p { margin-bottom: 1rem; line-height: 1.7; color: rgb(11 37 69 / 0.8); } }
+@utility btn-primary { @apply btn-base; background: var(--color-lagoon); color: #fff; &:hover { background: var(--color-lagoon-deep); } }
+@utility btn-outline { @apply btn-base; border: 1px solid rgb(255 255 255 / 0.6); color: #fff; &:hover { background: #fff; color: var(--color-ink); } }
+@utility btn-ink { @apply btn-base; background: var(--color-ink); color: #fff; &:hover { background: var(--color-ink-deep); } }
+@utility btn-ghost { @apply btn-base; border: 1px solid var(--color-line); color: var(--color-ink); &:hover { border-color: var(--color-ink); } }
+
+/* small serif kicker — replaces uppercase eyebrows */
+@utility kicker { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--color-lagoon); line-height: 1.2; }
+@utility lead { font-size: 1.2rem; line-height: 1.55; color: rgb(11 31 58 / 0.8); }
+@utility prose-x { & p { margin-bottom: 1.1rem; color: rgb(11 31 58 / 0.82); } & p:last-child { margin-bottom: 0; } }
+@utility rule { border-top: 1px solid var(--color-line); }
+@utility panel { background: #fff; border: 1px solid var(--color-line); border-radius: 0.75rem; padding: 1.75rem; }
+@utility glass { background: rgb(255 255 255 / 0.92); backdrop-filter: blur(10px); box-shadow: 0 20px 50px -30px rgb(7 22 41 / 0.6); }
+@utility img-fallback { background: linear-gradient(160deg, #1399b0 0%, #0b1f3a 100%); }
+@utility link { color: var(--color-lagoon-deep); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgb(19 153 176 / 0.4); &:hover { text-decoration-color: currentColor; } }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@utility rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; @media (prefers-reduced-motion: reduce) { animation: none; } }
+@utility rise-2 { @apply rise; animation-delay: .15s; }
+@utility rise-3 { @apply rise; animation-delay: .3s; }

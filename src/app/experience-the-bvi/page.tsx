@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Photo from "@/components/Photo";
 import JsonLd from "@/components/JsonLd";
+import PageHero from "@/components/PageHero";
 import { IMAGES } from "@/lib/images";
 import { SAMPLE_ITINERARY, WHY_BVI } from "@/lib/content";
 import { breadcrumb } from "@/lib/schema";
@@ -17,62 +18,54 @@ export default function Experience() {
   return (
     <>
       <JsonLd data={breadcrumb([{ name: "Home", path: "/" }, { name: "Experience the BVI", path: "/experience-the-bvi" }])} />
-      <section className="relative isolate bg-navy text-white">
-        <Photo image={IMAGES.journey} priority className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/30 to-navy" />
-        <div className="container-x py-24 md:py-32">
-          <p className="eyebrow text-sea-light">The destination</p>
-          <h1 className="mt-3 text-5xl font-semibold md:text-6xl">Experience the BVI</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/85">
-            Sixty islands and cays, steady trade winds, flat water and an anchorage every hour or two. The British Virgin Islands
-            are the easiest place in the world to sail a catamaran well — and the hardest to leave.
-          </p>
-        </div>
-      </section>
+      <PageHero image={IMAGES.journey} kicker="The destination" title="Experience the BVI" tall>
+        Sixty islands and cays, steady trade winds, flat water, and an anchorage every hour or two. The easiest place in the world
+        to sail a catamaran well — and the hardest to leave.
+      </PageHero>
 
-      <section className="container-x grid gap-12 py-20 lg:grid-cols-2">
-        <div className="prose-x">
-          <h2 className="mb-4 text-3xl font-semibold">Your journey begins on Freedom</h2>
-          <p>
-            A BVI week is a loop around the Sir Francis Drake Channel. You pick up Freedom in Road Town, Tortola, sit through a chart
-            briefing with BVI Yacht Charters, and within two hours you're on a mooring ball at Norman Island with a snorkel on. From
-            there every day is a short sail — 1 to 3 hours — to the next bay, with time to swim, explore ashore and be back aboard for
+      <section className="container-x grid gap-14 py-20 lg:grid-cols-12">
+        <div className="prose-x lg:col-span-6">
+          <h2>Your week begins on Freedom</h2>
+          <p className="mt-5">
+            A BVI week is a loop around the Sir Francis Drake Channel. You pick up Freedom in Road Town, sit through a chart briefing
+            with BVI Yacht Charters, and within two hours you're on a mooring at Norman Island with a snorkel on. From there every
+            day is a short sail — one to three hours — to the next bay, with time to swim, go ashore, and be back aboard for
             sundowners on the flybridge.
           </p>
           <p>
             Snorkel the Caves and the Indians, swim through the boulders at The Baths, paddleboard the North Sound, eat lobster on
-            Anegada's beach and finish with a Painkiller at the Soggy Dollar. Nothing is more than a day's sail from anything else,
+            Anegada's beach, and finish with a Painkiller at the Soggy Dollar. Nothing is more than a day's sail from anything else,
             and mooring fields mean you rarely have to anchor.
           </p>
-          <h2 className="mb-4 mt-10 text-3xl font-semibold">Beyond the sea</h2>
-          <p>
-            Ashore, every island has its own personality: Tortola's Cane Garden Bay and full-moon parties at Trellis Bay; Virgin Gorda's
-            Baths and Spanish Town; the North Sound's Saba Rock and Bitter End; the flat coral island of Anegada with its flamingos and
-            lobster shacks; and Jost Van Dyke's White Bay, the beach-bar capital of the Caribbean.
+          <h2 className="mt-12">Beyond the sea</h2>
+          <p className="mt-5">
+            Every island has its own personality: Tortola's Cane Garden Bay and the full-moon parties at Trellis Bay; Virgin Gorda's
+            Baths and Spanish Town; the North Sound's Saba Rock and Bitter End; flat, coral Anegada with its flamingos and lobster
+            shacks; and Jost Van Dyke's White Bay, the beach-bar capital of the Caribbean.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <Photo image={IMAGES.bviFreedom} className="col-span-2 h-72 w-full rounded-2xl object-cover" />
-          <Photo image={IMAGES.exp44} className="h-56 w-full rounded-2xl object-cover" />
-          <Photo image={IMAGES.clearWater} className="h-56 w-full rounded-2xl object-cover" />
-          <Photo image={IMAGES.exp55} className="col-span-2 h-64 w-full rounded-2xl object-cover" />
+        <div className="grid grid-cols-2 gap-2 lg:col-span-6">
+          <Photo image={IMAGES.bviFreedom} className="col-span-2 aspect-[16/10] w-full rounded-lg object-cover" />
+          <Photo image={IMAGES.exp44} className="aspect-square w-full rounded-lg object-cover" />
+          <Photo image={IMAGES.clearWater} className="aspect-square w-full rounded-lg object-cover" />
         </div>
       </section>
 
-      <section className="bg-sand py-20">
+      <section className="bg-lagoon-pale py-20">
         <div className="container-x">
-          <p className="eyebrow">Sample itinerary</p>
-          <h2 className="mt-3 text-3xl font-semibold">A classic 7-day BVI loop on Freedom</h2>
-          <p className="mt-3 max-w-2xl text-navy/75">
-            Counter-clockwise around the Drake Channel, saving the long downwind run for the end. Swap days freely — that's the point
-            of a bareboat.
+          <p className="kicker">Sample itinerary</p>
+          <h2 className="mt-2">A classic seven-day loop on Freedom</h2>
+          <p className="mt-4 max-w-2xl text-ink/75">
+            Counter-clockwise around the Drake Channel, saving the long downwind run for the end. Swap days freely — that's the
+            point of a bareboat.
           </p>
-          <ol className="mt-8 grid gap-4 md:grid-cols-2">
-            {SAMPLE_ITINERARY.map((d) => (
-              <li key={d.day} className="card">
-                <div className="eyebrow">{d.day}</div>
-                <h3 className="mt-1 text-lg font-semibold">{d.stop}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/75">{d.note}</p>
+          <ol className="mt-12 border-l border-ink/20 pl-8 md:pl-12">
+            {SAMPLE_ITINERARY.map((d, i) => (
+              <li key={d.day} className="relative pb-10 last:pb-0">
+                <span className="display absolute -left-8 top-0 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-sm text-white md:-left-12">{i + 1}</span>
+                <div className="display text-base italic text-lagoon-deep">{d.day}</div>
+                <h3 className="mt-1 text-[1.6rem]">{d.stop}</h3>
+                <p className="mt-2 max-w-2xl text-ink/80">{d.note}</p>
               </li>
             ))}
           </ol>
@@ -80,18 +73,19 @@ export default function Experience() {
       </section>
 
       <section className="container-x py-20">
-        <h2 className="text-3xl font-semibold">Why sailors call the BVI the sailing capital of the Caribbean</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <h2>Why sailors call the BVI the sailing capital of the Caribbean</h2>
+        <div className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
           {WHY_BVI.map((w) => (
-            <div key={w.title}>
-              <h3 className="text-xl font-semibold">{w.title}</h3>
-              <p className="mt-2 leading-relaxed text-navy/75">{w.body}</p>
+            <div key={w.title} className="rule pt-5">
+              <h3>{w.title}</h3>
+              <p className="mt-2 text-ink/75">{w.body}</p>
             </div>
           ))}
         </div>
-        <div className="mt-12 text-center">
-          <h2 className="text-3xl font-semibold">Discover Freedom</h2>
-          <Link href="/pricing-and-inquiries#inquire" className="btn-primary mt-6">Inquire Now</Link>
+        <Photo image={IMAGES.exp55} className="mt-16 aspect-[21/9] w-full rounded-lg object-cover" />
+        <div className="mt-14 flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
+          <h2 className="max-w-xl">Ready to sail it yourself?</h2>
+          <Link href="/pricing-and-inquiries#inquire" className="btn-primary">Check availability</Link>
         </div>
       </section>
     </>

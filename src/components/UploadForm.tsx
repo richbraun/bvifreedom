@@ -53,20 +53,20 @@ export default function UploadForm() {
 
   if (state === "done") {
     return (
-      <div className="card text-center">
-        <div className="display text-2xl font-semibold">{msg}</div>
-        <p className="mt-2 text-navy/70">We'll add them to the gallery shortly. Tag <strong>#BVIFreedom</strong> if you post your own.</p>
-        <a href="/gallery" className="btn-navy mt-5">See the gallery</a>
+      <div className="panel text-center">
+        <div className="display text-2xl">{msg}</div>
+        <p className="mt-2 text-ink/70">We'll add them to the gallery shortly. Tag <strong>#BVIFreedom</strong> if you post your own.</p>
+        <a href="/gallery" className="btn-ink mt-5">See the gallery</a>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="card grid gap-4">
+    <form onSubmit={onSubmit} className="panel grid gap-4">
       <div>
         <label htmlFor="photos">Photos (up to {MAX_FILES}, {MAX_MB} MB each)</label>
         <input id="photos" name="photos" type="file" accept="image/*" multiple required onChange={onFiles}
-          className="file:mr-3 file:rounded-full file:border-0 file:bg-navy file:px-4 file:py-2 file:text-white" />
+          className="file:mr-3 file:rounded-full file:border-0 file:bg-ink file:px-4 file:py-2 file:text-white" />
       </div>
       {previews.length > 0 && (
         <div className="grid grid-cols-5 gap-2">
@@ -94,7 +94,7 @@ export default function UploadForm() {
       <button className="btn-primary justify-self-start" disabled={state === "sending"}>
         {state === "sending" ? progress || "Uploading…" : "Upload photos"}
       </button>
-      {state === "error" && <p className="text-sm text-coral">{msg}</p>}
+      {state === "error" && <p className="text-sm text-red-700">{msg}</p>}
     </form>
   );
 }

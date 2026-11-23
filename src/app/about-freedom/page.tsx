@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Photo from "@/components/Photo";
 import JsonLd from "@/components/JsonLd";
+import PageHero from "@/components/PageHero";
 import { IMAGES } from "@/lib/images";
 import { BOAT, COMFORT_FEATURES, SAILING_FEATURES } from "@/lib/content";
 import { breadcrumb, productLd } from "@/lib/schema";
@@ -14,14 +15,14 @@ export const metadata: Metadata = {
 };
 
 const specs: [string, string][] = [
-  ["Builder / model", `${BOAT.builder} ${BOAT.model}, ${BOAT.edition} edition`],
+  ["Builder and model", `${BOAT.builder} ${BOAT.model}, ${BOAT.edition} edition`],
   ["Year", String(BOAT.year)],
   ["Designer", BOAT.designer],
   ["Length overall", `${BOAT.loaFt} (${BOAT.loaM})`],
   ["Beam", `${BOAT.beamFt} (${BOAT.beamM})`],
   ["Draft", `${BOAT.draftFt} (${BOAT.draftM})`],
   ["Displacement", BOAT.displacement],
-  ["Cabins / heads", `${BOAT.cabins} double cabins, ${BOAT.heads} ensuite heads with showers`],
+  ["Cabins and heads", `${BOAT.cabins} double cabins, ${BOAT.heads} ensuite heads with showers`],
   ["Guests", `Up to ${BOAT.guests}`],
   ["Mainsail", BOAT.mainsail],
   ["Genoa", BOAT.genoa],
@@ -30,82 +31,81 @@ const specs: [string, string][] = [
   ["Water", BOAT.water],
   ["Generator", BOAT.generator],
   ["Air conditioning", BOAT.ac],
-  ["Home port", "BVI Yacht Charters, Road Town, Tortola, British Virgin Islands"],
+  ["Home port", "BVI Yacht Charters, Road Town, Tortola"],
 ];
+
+function FeatureList({ items }: { items: string[] }) {
+  return (
+    <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
+      {items.map((f) => <li key={f} className="rule pt-3 text-ink/80">{f}</li>)}
+    </ul>
+  );
+}
 
 export default function AboutFreedom() {
   return (
     <>
       <JsonLd data={[productLd, breadcrumb([{ name: "Home", path: "/" }, { name: "About Freedom", path: "/about-freedom" }])]} />
-      <section className="relative isolate bg-navy text-white">
-        <Photo image={IMAGES.about1} priority className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/30 to-navy" />
-        <div className="container-x py-24 md:py-32">
-          <p className="eyebrow text-sea-light">About the yacht</p>
-          <h1 className="mt-3 text-5xl font-semibold md:text-6xl">Freedom</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/85">
-            A {BOAT.year} {BOAT.builder} {BOAT.model} sailing catamaran, {BOAT.edition} edition, with {BOAT.cabins} ensuite cabins for
-            up to {BOAT.guests} guests. {BOAT.loaFt} long, {BOAT.beamFt} wide, and the largest Fountaine Pajot still offered bareboat.
-          </p>
-        </div>
-      </section>
+      <PageHero image={IMAGES.about1} kicker="The yacht" title="Freedom" tall>
+        A {BOAT.year} {BOAT.builder} {BOAT.model}, {BOAT.edition} edition — {BOAT.cabins} private cabins, each with its own head,
+        for up to {BOAT.guests} guests. {BOAT.loaFt} long, {BOAT.beamFt} wide, and the largest Fountaine Pajot still offered bareboat.
+      </PageHero>
 
-      <section className="container-x grid gap-12 py-20 lg:grid-cols-5">
-        <div className="prose-x lg:col-span-3">
-          <h2 className="mb-4 text-3xl font-semibold">What is the Aura 51?</h2>
-          <p>
-            The Aura 51 is Fountaine Pajot's flagship owner-operated catamaran, designed by Berret-Racoupeau and built in La Rochelle,
-            France. It replaced the Saba 50 in 2021 and is known for a huge flybridge lounge, a forward cockpit connected to the saloon
-            through an opening window, and a galley and saloon on one level with the aft cockpit.
-          </p>
-          <p>
-            Freedom is the {BOAT.edition} version: the whole starboard hull is a single owner's suite with a king island berth, desk,
-            and a large bathroom with separate shower. The port hull has two double cabins with ensuite heads, and two more doubles sit
-            forward, each with its own head — five private cabins in total.
-          </p>
-          <p>
-            She was commissioned new in {BOAT.year} specifically for BVI charter, so the options list leans toward comfort at anchor and
-            easy handling for a couple or a family crew.
-          </p>
-          <h2 className="mb-4 mt-10 text-3xl font-semibold">Comfort at anchor</h2>
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {COMFORT_FEATURES.map((f) => (
-              <li key={f} className="flex gap-2 text-navy/80"><span className="text-sea">◆</span>{f}</li>
-            ))}
-          </ul>
-          <h2 className="mb-4 mt-10 text-3xl font-semibold">Sailing and navigation</h2>
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {SAILING_FEATURES.map((f) => (
-              <li key={f} className="flex gap-2 text-navy/80"><span className="text-sea">◆</span>{f}</li>
-            ))}
-          </ul>
+      <section className="container-x grid gap-16 py-20 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <h2>What is the Aura 51?</h2>
+          <div className="prose-x mt-5">
+            <p>
+              The Aura 51 is Fountaine Pajot's flagship owner-operated catamaran, designed by Berret-Racoupeau and built in La Rochelle,
+              France. It replaced the Saba 50 in 2021 and is known for a huge flybridge lounge, a forward cockpit that opens into the
+              saloon, and a galley and saloon on one level with the aft cockpit.
+            </p>
+            <p>
+              Freedom is the {BOAT.edition} version: the whole starboard hull is one owner's suite with a king island berth, a desk,
+              and a large bathroom with separate shower. The port hull has two double cabins with ensuite heads, and two more doubles
+              sit forward, each with its own head — five private cabins in all.
+            </p>
+            <p>
+              She was commissioned new in {BOAT.year} for BVI charter, so the options list leans toward comfort at anchor and easy
+              handling for a couple or a family crew.
+            </p>
+          </div>
+
+          <h2 className="mt-16">Comfort at anchor</h2>
+          <div className="mt-6"><FeatureList items={COMFORT_FEATURES} /></div>
+
+          <h2 className="mt-16">Sailing and navigation</h2>
+          <div className="mt-6"><FeatureList items={SAILING_FEATURES} /></div>
         </div>
-        <aside className="lg:col-span-2">
-          <div className="card sticky top-28">
-            <h2 className="text-xl font-semibold">Specifications</h2>
-            <dl className="mt-4 divide-y divide-navy/10 text-sm">
+
+        <aside className="lg:col-span-5">
+          <div className="panel sticky top-24 !p-0">
+            <div className="display px-7 pt-6 text-2xl">Specifications</div>
+            <dl className="mt-3 px-7 pb-6">
               {specs.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-5 gap-3 py-2">
-                  <dt className="col-span-2 text-navy/60">{k}</dt>
-                  <dd className="col-span-3 font-medium">{v}</dd>
+                <div key={k} className="rule grid grid-cols-5 gap-3 py-2.5 text-[0.95rem]">
+                  <dt className="col-span-2 text-ink/60">{k}</dt>
+                  <dd className="col-span-3">{v}</dd>
                 </div>
               ))}
             </dl>
-            <Link href="/pricing-and-inquiries#inquire" className="btn-primary mt-6 w-full">Check availability</Link>
+            <div className="bg-lagoon-pale px-7 py-5">
+              <Link href="/pricing-and-inquiries#inquire" className="btn-primary w-full">Check availability</Link>
+            </div>
           </div>
         </aside>
       </section>
 
-      <section className="bg-sand py-20">
+      <section className="bg-mist py-20">
         <div className="container-x">
-          <p className="eyebrow">Aboard</p>
-          <h2 className="mt-3 text-3xl font-semibold">Photo tour</h2>
-          <p className="mt-2 text-sm text-navy/60">
-            Photos are Fountaine Pajot stock imagery of the Aura 51 {BOAT.edition} layout; Freedom is the same model and configuration.
+          <p className="kicker">Aboard</p>
+          <h2 className="mt-2">Photo tour</h2>
+          <p className="mt-3 text-ink/65">
+            Fountaine Pajot's photography of the Aura 51 {BOAT.edition} layout. Freedom is the same model and configuration.
           </p>
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-2 md:grid-cols-4">
             {[IMAGES.sn1, IMAGES.sn2, IMAGES.sn3, IMAGES.sn4, IMAGES.sn5, IMAGES.sn6, IMAGES.sn7, IMAGES.sn8].map((im) => (
-              <Photo key={im.src} image={im} className="h-56 w-full rounded-xl object-cover" />
+              <Photo key={im.src} image={im} className="aspect-[4/3] w-full rounded-md object-cover" />
             ))}
           </div>
         </div>
