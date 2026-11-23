@@ -20,7 +20,7 @@ export default async function Home() {
       <section className="relative isolate min-h-[92vh] overflow-hidden bg-ink text-white">
         <Photo image={IMAGES.home1} priority className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/35 to-ink/20" />
-        <div className="container-x flex min-h-[92vh] flex-col justify-end pb-36 pt-40 md:pb-40">
+        <div className="container-x flex min-h-[92vh] flex-col justify-end pb-36 pt-44 md:pb-40">
           <p className="kicker rise text-white/90">A private catamaran charter in the British Virgin Islands</p>
           <h1 className="rise-2 mt-3 max-w-5xl text-[3.2rem] leading-[0.98] md:text-[5.5rem]">
             Seven days. Sixty islands. One boat called Freedom.
