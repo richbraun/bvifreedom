@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { SITE } from "@/lib/content";
-import { IMAGES } from "@/lib/images";
 import { NAV } from "@/lib/nav";
 
 export default function Header() {
@@ -14,10 +13,10 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-white text-ink">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:bg-ink focus:px-3 focus:py-1 focus:text-white">Skip to content</a>
-      <div className="container-x flex items-center justify-between py-3">
+      <div className="container-x flex items-center justify-between py-2.5">
         <Link href="/" className="flex items-center" aria-label="Freedom BVI home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMAGES.logo.src} alt="Freedom BVI" className="h-12 w-auto md:h-14" />
+          <img src="/images/logo-freedom.png" alt="Freedom BVI" className="h-14 w-auto md:h-[4.5rem]" />
         </Link>
         <nav className="hidden items-center gap-6 text-[0.95rem] lg:flex" aria-label="Main">
           {NAV.map((n) => (

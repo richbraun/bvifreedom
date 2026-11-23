@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/content";
 import { NAV } from "@/lib/nav";
-import { IMAGES } from "@/lib/images";
 
 export default function Footer() {
   const a = SITE.address;
@@ -11,7 +10,7 @@ export default function Footer() {
       <div className="container-x grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMAGES.logoWide.src} alt="Freedom BVI" className="h-14 w-auto rounded bg-white p-2" />
+          <img src="/images/logo-freedom-full.png" alt="Freedom BVI" className="h-24 w-auto rounded-lg bg-white px-4 py-2" />
           <p className="mt-4 max-w-sm text-[0.95rem] leading-relaxed">
             A 2024 Fountaine Pajot Aura 51 for private charter in the British Virgin Islands, based with {SITE.operator.name} in Road Town, Tortola.
           </p>

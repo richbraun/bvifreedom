@@ -6,7 +6,7 @@ export const organizationLd = {
   "@id": `${SITE.domain}/#org`,
   name: "Freedom BVI",
   url: SITE.domain,
-  logo: `${SITE.domain}/images/logo.jpg`,
+  logo: `${SITE.domain}/images/logo-freedom-full.png`,
   email: SITE.email,
   telephone: `+1-${SITE.phone}`,
   sameAs: [SITE.facebook],

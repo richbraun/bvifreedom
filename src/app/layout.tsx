@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
   icons: { icon: "/images/favicon.png" },
+  // (logo used for OG is the hero photo; the brand logo lives in the header)
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
