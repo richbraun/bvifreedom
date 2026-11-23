@@ -191,7 +191,7 @@ export const WHY_BVI = [
 
 export const SAMPLE_ITINERARY = [
   { day: "Day 1", stop: "Road Town → Norman Island (The Bight)", note: "Chart briefing, provision, short 1.5-hour sail. Snorkel the Caves, dinner at Pirates Bight, after-dinner drinks on the Willy T." },
-  { day: "Day 2", stop: "Norman → Cooper Island", note: "Snorkel The Indians on the way. Mooring at Manchioneel Bay; Cooper Island Beach Club rum bar." },
+  { day: "Day 2", stop: "Norman → Cooper Island", note: "Snorkel The Indians on the way. Mooring at Manchioneel Bay; Cooper Island Beach Club rum bar, and the Cooper Island restaurant for dinner." },
   { day: "Day 3", stop: "Cooper → Virgin Gorda (The Baths / Spanish Town)", note: "Early mooring at The Baths before the day-trippers; swim through the boulder caves to Devil's Bay." },
   { day: "Day 4", stop: "Virgin Gorda → North Sound (Leverick Bay / Saba Rock)", note: "Protected anchorage, paddleboarding, Saba Rock happy hour, Bitter End Yacht Club." },
   { day: "Day 5", stop: "North Sound → Anegada", note: "The one open-water passage (about 3 hours). Lobster dinner on the beach at Anegada Reef Hotel or Potter's By The Sea." },
