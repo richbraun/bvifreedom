@@ -15,7 +15,7 @@ export const IMAGES = {
 
   // Home feature trio
   home1: { src: "/images/home-fountaine-pajot.jpg", alt: "Fountaine Pajot Aura 51 catamaran under sail", source: `${WP}/2024/02/home-1.jpg` },
-  home2: { src: "/images/home-latest-largest.jpg", alt: "Aura 51 — the largest Fountaine Pajot you can sail without crew", source: `${WP}/2024/02/home-2.jpg` },
+  home2: { src: "/images/home-latest-largest.jpg", alt: "Fountaine Pajot Aura 51 flybridge and cockpit", source: `${WP}/2024/02/home-2.jpg` },
   home3: { src: "/images/home-sail-of-a-lifetime.jpg", alt: "Sailing the British Virgin Islands aboard Freedom", source: `${WP}/2024/02/home-3.jpg` },
 
   // Home gallery

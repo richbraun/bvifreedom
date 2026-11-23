@@ -48,7 +48,7 @@ export default function AboutFreedom() {
       <JsonLd data={[productLd, breadcrumb([{ name: "Home", path: "/" }, { name: "About Freedom", path: "/about-freedom" }])]} />
       <PageHero image={IMAGES.about1} kicker="The yacht" title="Freedom" tall>
         A {BOAT.year} {BOAT.builder} {BOAT.model}, {BOAT.edition} edition — {BOAT.cabins} private cabins, each with its own head,
-        for up to {BOAT.guests} guests. {BOAT.loaFt} long, {BOAT.beamFt} wide, and the largest Fountaine Pajot still offered bareboat.
+        for up to {BOAT.guests} guests. {BOAT.loaFt} long, {BOAT.beamFt} wide, offered bareboat or with a captain.
       </PageHero>
 
       <section className="container-x grid gap-16 py-20 lg:grid-cols-12">

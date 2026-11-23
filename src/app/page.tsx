@@ -55,7 +55,7 @@ export default async function Home() {
       <section className="container-x grid items-center gap-12 pb-24 pt-32 md:pt-40 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="kicker">The yacht</p>
-          <h2 className="mt-2">The largest Fountaine Pajot you can still sail yourself.</h2>
+          <h2 className="mt-2">Villa-sized space in a boat a couple can sail.</h2>
           <div className="prose-x mt-6">
             <p>
               Freedom is an Aura 51 in the Maestro layout: an owner's suite running the length of the starboard hull, four guest
