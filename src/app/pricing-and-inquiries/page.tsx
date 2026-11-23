@@ -8,9 +8,9 @@ import { PRESS_REVIEWS, PRICING_NOTES, SEASONS, SITE, TESTIMONIALS } from "@/lib
 import { breadcrumb, productLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Pricing & Inquiries — BVI catamaran charter rates from $15,000/week",
+  title: "Pricing & Inquiries — BVI catamaran charter rates from $14,000/week",
   description:
-    "Weekly charter rates for the Fountaine Pajot Aura 51 catamaran Freedom in the British Virgin Islands: high season $19,000, mid $17,500, low $16,500, off season $15,000. Inquire for availability.",
+    "Weekly charter rates for the Fountaine Pajot Aura 51 catamaran Freedom in the British Virgin Islands: high season $18,000, mid $16,500, low $15,500, off season $14,000. Inquire for availability.",
   alternates: { canonical: "/pricing-and-inquiries" },
 };
 
@@ -19,7 +19,7 @@ export default function Pricing() {
     <>
       <JsonLd data={[productLd, breadcrumb([{ name: "Home", path: "/" }, { name: "Pricing & Inquiries", path: "/pricing-and-inquiries" }])]} />
       <PageHero kicker="Pricing" title="How much does a week on Freedom cost?">
-        Between <strong className="font-semibold text-white">$15,000 and $19,000 per week</strong>, depending on the season — the whole catamaran,
+        Between <strong className="font-semibold text-white">$14,000 and $18,000 per week</strong>, depending on the season — the whole catamaran,
         five ensuite cabins, up to 10 guests. Rates are bareboat; a captain or chef can be added.
       </PageHero>
 

@@ -84,7 +84,7 @@ export type Season = {
 export const SEASONS: Season[] = [
   {
     name: "High Season",
-    weeklyRate: 19000,
+    weeklyRate: 18000,
     ranges: ["Dec 16 – Jan 1", "Feb 1 – Mar 31"],
     dates: [
       { start: "12-16", end: "01-01" },
@@ -93,7 +93,7 @@ export const SEASONS: Season[] = [
   },
   {
     name: "Mid Season",
-    weeklyRate: 17500,
+    weeklyRate: 16500,
     ranges: ["Jan 2 – Jan 31", "Apr 1 – Apr 30"],
     dates: [
       { start: "01-02", end: "01-31" },
@@ -102,7 +102,7 @@ export const SEASONS: Season[] = [
   },
   {
     name: "Low Season",
-    weeklyRate: 16500,
+    weeklyRate: 15500,
     ranges: ["May 1 – Jul 9", "Nov 6 – Dec 15"],
     dates: [
       { start: "05-01", end: "07-09" },
@@ -111,7 +111,7 @@ export const SEASONS: Season[] = [
   },
   {
     name: "Off Season",
-    weeklyRate: 15000,
+    weeklyRate: 14000,
     ranges: ["Jul 10 – Nov 5"],
     dates: [{ start: "07-10", end: "11-05" }],
   },
@@ -202,7 +202,7 @@ export const SAMPLE_ITINERARY = [
 export const FAQ = [
   {
     q: "How much does it cost to charter Freedom for a week in the BVI?",
-    a: "Freedom charters from $15,000 per week in the off season (July 10 – November 5) to $19,000 per week in high season (December 16 – January 1 and February 1 – March 31). The rate covers the whole yacht for up to 10 guests; fuel, provisioning, mooring fees and BVI taxes are additional.",
+    a: "Freedom charters from $14,000 per week in the off season (July 10 – November 5) to $18,000 per week in high season (December 16 – January 1 and February 1 – March 31). The rate covers the whole yacht for up to 10 guests; fuel, provisioning, mooring fees and BVI taxes are additional.",
   },
   {
     q: "What kind of boat is Freedom?",

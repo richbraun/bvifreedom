@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | Freedom BVI",
   },
   description:
-    "Charter Freedom, a 2024 Fountaine Pajot Aura 51 five-cabin catamaran, bareboat or with captain, from Road Town, Tortola. Weekly rates from $15,000. Managed by BVI Yacht Charters.",
+    "Charter Freedom, a 2024 Fountaine Pajot Aura 51 five-cabin catamaran, bareboat or with captain, from Road Town, Tortola. Weekly rates from $14,000. Managed by BVI Yacht Charters.",
   keywords: [
     "BVI catamaran charter", "Fountaine Pajot Aura 51 charter", "British Virgin Islands sailing",
     "bareboat charter BVI", "5 cabin catamaran charter", "Tortola yacht charter",
