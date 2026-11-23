@@ -218,7 +218,7 @@ export const FAQ = [
   },
   {
     q: "Where does the charter start?",
-    a: "Freedom is based with BVI Yacht Charters in Road Town, Tortola. Fly into Beef Island (EIS) or into St. Thomas (STT) and take the ferry to Road Town or West End.",
+    a: "Freedom is based with BVI Yacht Charters in Road Town, Tortola. The easiest way in is to fly to Beef Island (EIS) — American Airlines has several daily flights connecting through Miami, and it's 20 minutes by taxi to Road Town. Alternatively, fly into St. Thomas (STT) and take the ferry to Tortola.",
   },
   {
     q: "When is the best time to sail the BVI?",
@@ -236,6 +236,7 @@ export const FAQ = [
 
 export const RESOURCES = {
   gettingThere: [
+    { label: "American Airlines — Miami to Beef Island (EIS)", url: "https://www.aa.com/booking/find-flights" },
     { label: "How to get flights to the BVI (Aerial BVI)", url: "https://aerialbvi.com/blog/how-to-get-flights-to-bvi/" },
     { label: "Getting there — Frommer's BVI guide", url: "https://www.frommers.com/destinations/the-british-virgin-islands/planning-a-trip/getting-there" },
     { label: "BVI Tourism — official site", url: "https://www.bvitourism.com" },

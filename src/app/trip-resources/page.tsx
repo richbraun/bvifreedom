@@ -44,7 +44,7 @@ export default function Resources() {
       <section className="container-x grid gap-6 py-16 md:grid-cols-2">
         <LinkList
           title="Getting to the BVI"
-          intro="Two ways in. Fly to Beef Island / Tortola (EIS) via San Juan, St. Thomas, Antigua or Miami and taxi 20 minutes to Road Town. Or fly direct to St. Thomas (STT), taxi to Charlotte Amalie or Red Hook, and take a 45–60 minute ferry to West End or Road Town — bring your passport, you're crossing a border."
+          intro="The easiest and most efficient way to get to the BVI is to fly into Beef Island / Tortola (EIS). American Airlines has several flights per day connecting through Miami, and it's a 20-minute taxi from the airport to Road Town — we recommend the American flight. Alternatively, fly into St. Thomas (STT) and take the ferry to Tortola (45–60 minutes to West End or Road Town; bring your passport, you're crossing a border)."
           items={RESOURCES.gettingThere}
         />
         <LinkList
