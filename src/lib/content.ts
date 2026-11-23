@@ -243,7 +243,7 @@ export const RESOURCES = {
   ],
   ferries: [
     { label: "Road Town Fast Ferry", url: "https://www.roadtownfastferry.com" },
-    { label: "St. Thomas – BVI ferry schedules (usvi.net)", url: "https://www.usvi.net/ferry-schedules/" },
+    { label: "BVI Tourist Board — official ferry schedules", url: "https://bvitourism.com/ferry-schedules" },
     { label: "Native Son Ferry", url: "https://nativesonferry.co" },
     { label: "Smith's Ferry", url: "https://www.smithsferry.com" },
   ],
@@ -253,7 +253,7 @@ export const RESOURCES = {
   ],
   itineraries: [
     { label: "BVI Yacht Charters sample itineraries", url: "https://www.bviyachtcharters.com" },
-    { label: "7-day BVI sailing itinerary (My Traveling Tastes)", url: "https://mytravelingtastes.com" },
+    { label: "The Moorings — 7-day BVI sailing itinerary", url: "https://www.moorings.com/destinations/caribbean/british-virgin-islands-yacht-charters/itinerary/7-day-bvi-sailing-yacht-charter-itinerary" },
   ],
   guidebooks: [
     { label: "The Cruising Guide to the Virgin Islands", url: "https://www.amazon.com/s?k=cruising+guide+to+the+virgin+islands" },
