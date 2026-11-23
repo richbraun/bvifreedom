@@ -249,7 +249,7 @@ export const RESOURCES = {
   ],
   waterTaxis: [
     { label: "Dolphin Water Taxi", url: "https://www.dolphinshuttle.com" },
-    { label: "Seahorse Water Taxi", url: "https://www.seahorse.com" },
+    { label: "Seahorse Water Taxi", url: "https://seahorsevi.com/" },
   ],
   itineraries: [
     { label: "BVI Yacht Charters sample itineraries", url: "https://www.bviyachtcharters.com" },
