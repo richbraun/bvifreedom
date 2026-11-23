@@ -30,7 +30,7 @@ export default function Footer() {
           <ul className="mt-3 space-y-2 text-[0.95rem]">
             <li><a href={`tel:${SITE.phone}`} className="hover:text-white">{SITE.phoneVanity}<br /><span className="text-white/55">{SITE.phone}</span></a></li>
             <li><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
-            <li><a href={maps} target="_blank" rel="noopener" className="hover:text-white">{a.street}<br />{a.city}, {a.region} {a.postal}</a></li>
+            <li>{SITE.legalName}<br /><a href={maps} target="_blank" rel="noopener" className="hover:text-white">{a.street}<br />{a.city}, {a.region} {a.postal}</a></li>
           </ul>
         </div>
       </div>

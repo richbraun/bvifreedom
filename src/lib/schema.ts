@@ -5,6 +5,7 @@ export const organizationLd = {
   "@type": "Organization",
   "@id": `${SITE.domain}/#org`,
   name: "Freedom BVI",
+  legalName: SITE.legalName,
   url: SITE.domain,
   logo: `${SITE.domain}/images/logo-freedom-full.png`,
   email: SITE.email,
