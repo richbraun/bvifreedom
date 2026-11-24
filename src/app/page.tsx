@@ -5,6 +5,7 @@ import { IMAGES } from "@/lib/images";
 import { BOAT, SEASONS, SITE, WHY_BVI } from "@/lib/content";
 import { charterLd } from "@/lib/schema";
 import { approvedPhotos, approvedReviews } from "@/lib/db";
+import Stars from "@/components/Stars";
 
 export const revalidate = 3600;
 
@@ -141,6 +142,34 @@ export default async function Home() {
               // eslint-disable-next-line @next/next/no-img-element
               <img key={p.id} src={p.url} alt={p.caption ?? "Guest photo aboard Freedom"} className="aspect-square w-full rounded-md object-cover" loading="lazy" />
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* Guest reviews */}
+      {reviews.length > 0 && (
+        <section className="bg-lagoon-pale">
+          <div className="container-x py-20">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="kicker">From the guest book</p>
+                <h2 className="mt-2">What crews say after a week on Freedom</h2>
+              </div>
+              <div className="flex items-center gap-3 text-ink/75">
+                <Stars value={reviews.reduce((a, r) => a + r.rating, 0) / reviews.length} size={22} />
+                <span>{(reviews.reduce((a, r) => a + r.rating, 0) / reviews.length).toFixed(1)} · {reviews.length} review{reviews.length === 1 ? "" : "s"}</span>
+              </div>
+            </div>
+            <div className="mt-10 grid gap-8 md:grid-cols-3">
+              {reviews.slice(0, 3).map((r) => (
+                <figure key={r.id} className="rule pt-5">
+                  <Stars value={r.rating} />
+                  <blockquote className="display mt-3 text-[1.35rem] leading-snug text-ink/90">“{r.body}”</blockquote>
+                  <figcaption className="mt-4 text-sm text-ink/55">{r.guest_name}{r.sailed_week ? `, ${r.sailed_week}` : ""}</figcaption>
+                </figure>
+              ))}
+            </div>
+            {reviews.length > 3 && <Link href="/pricing-and-inquiries#reviews" className="link mt-8 inline-block">Read all {reviews.length} reviews</Link>}
           </div>
         </section>
       )}
