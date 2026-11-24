@@ -149,30 +149,18 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Guest reviews */}
+      {/* Guest rating */}
       {reviews.length > 0 && (
         <section className="bg-lagoon-pale">
-          <div className="container-x py-20">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="container-x flex flex-col items-start gap-5 py-12 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4">
+              <Stars value={reviews.reduce((a, r) => a + r.rating, 0) / reviews.length} size={26} />
               <div>
-                <p className="kicker">From the guest book</p>
-                <h2 className="mt-2">What crews say after a week on Freedom</h2>
-              </div>
-              <div className="flex items-center gap-3 text-ink/75">
-                <Stars value={reviews.reduce((a, r) => a + r.rating, 0) / reviews.length} size={22} />
-                <span>{(reviews.reduce((a, r) => a + r.rating, 0) / reviews.length).toFixed(1)} · {reviews.length} review{reviews.length === 1 ? "" : "s"}</span>
+                <div className="display text-2xl">{(reviews.reduce((a, r) => a + r.rating, 0) / reviews.length).toFixed(1)} out of 5</div>
+                <div className="text-sm text-ink/60">from {reviews.length} crew{reviews.length === 1 ? "" : "s"} who have sailed Freedom</div>
               </div>
             </div>
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {reviews.slice(0, 3).map((r) => (
-                <figure key={r.id} className="rule pt-5">
-                  <Stars value={r.rating} />
-                  <blockquote className="display mt-3 text-[1.35rem] leading-snug text-ink/90">“{r.body}”</blockquote>
-                  <figcaption className="mt-4 text-sm text-ink/55">{r.guest_name}{r.sailed_week ? `, ${r.sailed_week}` : ""}</figcaption>
-                </figure>
-              ))}
-            </div>
-            {reviews.length > 3 && <Link href="/reviews" className="link mt-8 inline-block">Read all {reviews.length} reviews</Link>}
+            <Link href="/reviews" className="btn-ghost">Read the reviews</Link>
           </div>
         </section>
       )}

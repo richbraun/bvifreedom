@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Photo from "@/components/Photo";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
 import InquiryForm from "@/components/InquiryForm";
 import { IMAGES } from "@/lib/images";
-import { PRESS_REVIEWS, PRICING_NOTES, SEASONS, SITE, TESTIMONIALS } from "@/lib/content";
+import { PRICING_NOTES, SEASONS, SITE } from "@/lib/content";
 import { breadcrumb, charterLd } from "@/lib/schema";
 import { approvedReviews } from "@/lib/db";
-import Stars from "@/components/Stars";
 
 export const revalidate = 3600;
 
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 
 export default async function Pricing() {
   const reviews = await approvedReviews();
-  const avg = reviews.length ? reviews.reduce((a, r) => a + r.rating, 0) / reviews.length : 0;
   return (
     <>
       <JsonLd data={[charterLd(reviews), breadcrumb([{ name: "Home", path: "/" }, { name: "Pricing & Inquiries", path: "/pricing-and-inquiries" }])]} />
@@ -65,52 +64,13 @@ export default async function Pricing() {
         </div>
       </section>
 
-      <section id="reviews" className="scroll-mt-24 bg-mist">
-        <div className="container-x py-20">
-          {reviews.length > 0 && (
-            <>
-              <p className="kicker">Reviews</p>
-              <h2 className="mt-2">What guests say about Freedom</h2>
-              <div className="mt-3 flex items-center gap-3 text-ink/70">
-                <Stars value={avg} /> <span>{avg.toFixed(1)} from {reviews.length} guest review{reviews.length === 1 ? "" : "s"}</span>
-              </div>
-              <div className="mt-8 grid gap-8 md:grid-cols-3">
-                {reviews.slice(0, 9).map((r) => (
-                  <figure key={r.id} className="rule pt-5">
-                    <Stars value={r.rating} />
-                    <blockquote className="mt-3 text-ink/85">“{r.body}”</blockquote>
-                    <figcaption className="mt-3 text-sm text-ink/55">{r.guest_name}{r.sailed_week ? `, ${r.sailed_week}` : ""}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            </>
-          )}
-
-          <h2 className="mt-20">What the press says about the Aura 51</h2>
-          <div className="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-4">
-            {PRESS_REVIEWS.map((r) => (
-              <a key={r.outlet} href={r.url} target="_blank" rel="noopener" className="rule block pt-4">
-                <div className="display text-2xl">{r.outlet}</div>
-                <p className="mt-2 text-[0.95rem] text-ink/70">{r.summary}</p>
-                <span className="link mt-3 inline-block text-sm">Read the review</span>
-              </a>
-            ))}
+      <section className="bg-mist">
+        <div className="container-x flex flex-col items-start gap-4 py-14 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="kicker">Reviews</p>
+            <h2 className="mt-1 text-3xl">What crews say after a week on Freedom</h2>
           </div>
-
-          <h2 className="mt-20">What guests say about {SITE.operator.name}</h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure key={t.quote}>
-                <blockquote className="display text-2xl leading-snug text-ink/90">“{t.quote}”</blockquote>
-                <figcaption className="mt-4 text-sm text-ink/55">{t.name}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="mt-12 flex flex-wrap items-center gap-8 opacity-70">
-            <Photo image={IMAGES.badgeTripadvisor} className="h-9 w-auto" />
-            <Photo image={IMAGES.badgeGoogle} className="h-9 w-auto" />
-            <Photo image={IMAGES.badgeTrust} className="h-9 w-auto" />
-          </div>
+          <Link href="/reviews" className="btn-ghost">Read the reviews</Link>
         </div>
       </section>
     </>
