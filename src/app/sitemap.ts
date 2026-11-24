@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/trip-resources", 0.6, "yearly"],
     ["/faq", 0.8, "monthly"],
     ["/gallery", 0.7, "weekly"],
+    ["/reviews", 0.8, "weekly"],
     ["/privacy-policy", 0.1, "yearly"],
     ["/terms", 0.1, "yearly"],
   ];

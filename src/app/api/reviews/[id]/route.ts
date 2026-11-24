@@ -5,7 +5,7 @@ import { isAdmin } from "@/lib/admin";
 
 export const runtime = "nodejs";
 type Ctx = { params: Promise<{ id: string }> };
-const paths = ["/", "/pricing-and-inquiries", "/gallery"];
+const paths = ["/", "/pricing-and-inquiries", "/reviews", "/about-freedom"];
 
 export async function PATCH(req: Request, { params }: Ctx) {
   if (!(await isAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

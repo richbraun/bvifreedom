@@ -99,7 +99,7 @@ export default async function Home() {
               Inquire here and you deal with the owner first. Booking is completed through BVI Yacht Charters at their standard terms,
               and you receive a welcome-aboard gift from us.
             </p>
-            <Link href="/pricing-and-inquiries#reviews" className="link">Read guest reviews</Link>
+            <Link href="/reviews" className="link">Read guest reviews</Link>
           </div>
         </div>
       </section>
@@ -172,7 +172,7 @@ export default async function Home() {
                 </figure>
               ))}
             </div>
-            {reviews.length > 3 && <Link href="/pricing-and-inquiries#reviews" className="link mt-8 inline-block">Read all {reviews.length} reviews</Link>}
+            {reviews.length > 3 && <Link href="/reviews" className="link mt-8 inline-block">Read all {reviews.length} reviews</Link>}
           </div>
         </section>
       )}
