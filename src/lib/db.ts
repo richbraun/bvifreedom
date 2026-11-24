@@ -49,6 +49,7 @@ export async function approvedReviews(limit = 50): Promise<GuestReview[]> {
     await ensureReviewsTable();
     const rows = await sql()`select id, guest_name, rating, body, sailed_week, status, created_at
       from guest_reviews where status = 'approved' order by created_at desc limit ${limit}`;
-    return rows as GuestReview[];
+    // guests often paste their review wrapped in quote marks; the page adds its own
+    return (rows as GuestReview[]).map((r) => ({ ...r, body: r.body.trim().replace(/^["“”']+|["“”']+$/g, "").trim() }));
   } catch (e) { console.error("approvedReviews failed:", e); return []; }
 }
