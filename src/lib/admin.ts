@@ -15,8 +15,9 @@ export async function isAdmin(): Promise<boolean> {
   return c.length === t.length && timingSafeEqual(Buffer.from(c), Buffer.from(t));
 }
 
-export function checkPassword(pw: string) {
-  const want = process.env.ADMIN_PASSWORD ?? "";
+export function checkPassword(pwRaw: string) {
+  const want = (process.env.ADMIN_PASSWORD ?? "").trim();
+  const pw = (pwRaw ?? "").trim();
   return want.length > 0 && pw.length === want.length && timingSafeEqual(Buffer.from(pw), Buffer.from(want));
 }
 

@@ -12,22 +12,27 @@ export const dynamic = "force-dynamic";
 async function login(formData: FormData) {
   "use server";
   const pw = (formData.get("password") as string) ?? "";
+  if (!process.env.ADMIN_PASSWORD) redirect("/admin/photos?err=unset");
   if (checkPassword(pw)) {
     const c = adminCookie();
     (await cookies()).set(c.name, c.value, c);
+    redirect("/admin/photos");
   }
-  redirect("/admin/photos");
+  redirect("/admin/photos?err=wrong");
 }
 
-export default async function AdminPhotos() {
+export default async function AdminPhotos({ searchParams }: { searchParams: Promise<{ err?: string }> }) {
   if (!(await isAdmin())) {
+    const { err } = await searchParams;
     return (
       <section className="container-narrow max-w-sm pb-24 pt-36">
         <h1 className="text-3xl">Admin</h1>
         <form action={login} className="panel mt-6 grid gap-3">
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" required />
+          <input id="password" name="password" type="password" required autoFocus />
           <button className="btn-ink">Sign in</button>
+          {err === "wrong" && <p className="text-sm text-red-700">Incorrect password. It must match ADMIN_PASSWORD in Vercel exactly (case-sensitive).</p>}
+          {err === "unset" && <p className="text-sm text-red-700">ADMIN_PASSWORD isn't set in Vercel, so no password can work yet. Add it and redeploy.</p>}
         </form>
       </section>
     );
