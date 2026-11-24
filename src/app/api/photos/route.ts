@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { notifyOwner } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -22,5 +23,9 @@ export async function POST(req: Request) {
   for (const url of urls) {
     await db`insert into guest_photos (url, caption, guest_name, sailed_week) values (${url}, ${caption}, ${guest_name}, ${sailed_week})`;
   }
+  await notifyOwner(`${urls.length} new guest photo${urls.length === 1 ? "" : "s"} waiting for approval`, [
+    `${guest_name ?? "A guest"}${sailed_week ? ` (aboard ${sailed_week})` : ""} uploaded ${urls.length} photo${urls.length === 1 ? "" : "s"}.`,
+    caption ? `Caption: "${caption}"` : "", "", ...urls,
+  ]);
   return NextResponse.json({ ok: true, count: urls.length });
 }

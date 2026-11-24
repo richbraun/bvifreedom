@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ensureReviewsTable, sql } from "@/lib/db";
+import { notifyOwner } from "@/lib/notify";
 
 export const runtime = "nodejs";
 const clean = (v: unknown, n: number) => (typeof v === "string" ? v.trim().slice(0, n) : "");
@@ -17,5 +18,8 @@ export async function POST(req: Request) {
   }
   await ensureReviewsTable();
   await sql()`insert into guest_reviews (guest_name, rating, body, sailed_week) values (${guest_name}, ${rating}, ${body}, ${sailed_week})`;
+  await notifyOwner(`New guest review from ${guest_name} (${"★".repeat(rating)}${"☆".repeat(5 - rating)})`, [
+    `${guest_name}${sailed_week ? ` — aboard ${sailed_week}` : ""} rated Freedom ${rating}/5:`, "", `"${body}"`, "", "It is pending until you approve it.",
+  ]);
   return NextResponse.json({ ok: true });
 }
