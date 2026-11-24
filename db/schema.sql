@@ -26,3 +26,15 @@ create table if not exists guest_photos (
 );
 
 create index if not exists guest_photos_status_idx on guest_photos (status, created_at desc);
+
+create table if not exists guest_reviews (
+  id            bigserial primary key,
+  guest_name    text not null,
+  rating        smallint not null check (rating between 1 and 5),
+  body          text not null,
+  sailed_week   text,
+  status        text not null default 'pending' check (status in ('pending','approved','rejected')),
+  created_at    timestamptz not null default now(),
+  reviewed_at   timestamptz
+);
+create index if not exists guest_reviews_status_idx on guest_reviews (status, created_at desc);

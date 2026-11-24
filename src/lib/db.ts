@@ -24,3 +24,31 @@ export async function approvedPhotos(limit = 200): Promise<GuestPhoto[]> {
     order by created_at desc limit ${limit}`;
   return rows as GuestPhoto[];
 }
+
+export type GuestReview = {
+  id: number;
+  guest_name: string;
+  rating: number;
+  body: string;
+  sailed_week: string | null;
+  status: "pending" | "approved" | "rejected";
+  created_at: string;
+};
+
+/** Creates the reviews table on first use so no manual migration is needed. */
+export async function ensureReviewsTable() {
+  await sql()`create table if not exists guest_reviews (
+    id bigserial primary key, guest_name text not null, rating smallint not null check (rating between 1 and 5),
+    body text not null, sailed_week text, status text not null default 'pending' check (status in ('pending','approved','rejected')),
+    created_at timestamptz not null default now(), reviewed_at timestamptz)`;
+}
+
+export async function approvedReviews(limit = 50): Promise<GuestReview[]> {
+  if (!process.env.DATABASE_URL) return [];
+  try {
+    await ensureReviewsTable();
+    const rows = await sql()`select id, guest_name, rating, body, sailed_week, status, created_at
+      from guest_reviews where status = 'approved' order by created_at desc limit ${limit}`;
+    return rows as GuestReview[];
+  } catch { return []; }
+}

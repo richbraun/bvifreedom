@@ -31,37 +31,56 @@ export const websiteLd = {
   inLanguage: "en-US",
 };
 
-export const productLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "@id": `${SITE.domain}/#boat`,
-  name: `Catamaran Freedom — ${BOAT.year} ${BOAT.builder} ${BOAT.model} (${BOAT.edition})`,
-  description: `Private bareboat or captained charter of Freedom, a ${BOAT.year} ${BOAT.builder} ${BOAT.model} sailing catamaran with ${BOAT.cabins} ensuite cabins for up to ${BOAT.guests} guests, based in Road Town, Tortola, British Virgin Islands.`,
-  brand: { "@type": "Brand", name: BOAT.builder },
-  model: BOAT.model,
-  image: [`${SITE.domain}/images/home-fountaine-pajot.jpg`, `${SITE.domain}/images/about-freedom.png`],
-  url: `${SITE.domain}/about-freedom`,
-  additionalProperty: [
-    { "@type": "PropertyValue", name: "Length overall", value: `${BOAT.loaFt} / ${BOAT.loaM}` },
-    { "@type": "PropertyValue", name: "Beam", value: `${BOAT.beamFt} / ${BOAT.beamM}` },
-    { "@type": "PropertyValue", name: "Draft", value: `${BOAT.draftFt} / ${BOAT.draftM}` },
-    { "@type": "PropertyValue", name: "Cabins", value: String(BOAT.cabins) },
-    { "@type": "PropertyValue", name: "Heads", value: String(BOAT.heads) },
-    { "@type": "PropertyValue", name: "Guests", value: String(BOAT.guests) },
-    { "@type": "PropertyValue", name: "Engines", value: BOAT.engines },
-    { "@type": "PropertyValue", name: "Home port", value: "Road Town, Tortola, British Virgin Islands" },
-  ],
-  offers: SEASONS.map((s) => ({
-    "@type": "Offer",
-    name: `${s.name} weekly charter`,
-    price: s.weeklyRate,
-    priceCurrency: "USD",
-    description: `${s.ranges.join("; ")} — per week, whole yacht, bareboat`,
-    availability: "https://schema.org/InStock",
-    url: `${SITE.domain}/pricing-and-inquiries`,
-    seller: { "@id": `${SITE.domain}/#org` },
-  })),
-};
+import type { GuestReview } from "./db";
+
+/** Charter described as a Service (not a shippable Product) so Google doesn't expect shipping/return fields. */
+export function charterLd(reviews: GuestReview[] = []) {
+  const base: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE.domain}/#charter`,
+    serviceType: "Yacht charter",
+    name: `Catamaran Freedom — ${BOAT.year} ${BOAT.builder} ${BOAT.model} (${BOAT.edition}) charter`,
+    description: `Private bareboat or captained charter of Freedom, a ${BOAT.year} ${BOAT.builder} ${BOAT.model} sailing catamaran with ${BOAT.cabins} ensuite cabins for up to ${BOAT.guests} guests, based in Road Town, Tortola, British Virgin Islands.`,
+    provider: { "@id": `${SITE.domain}/#org` },
+    brand: { "@type": "Brand", name: BOAT.builder },
+    areaServed: { "@type": "Place", name: "British Virgin Islands" },
+    image: [`${SITE.domain}/images/home-fountaine-pajot.jpg`, `${SITE.domain}/images/about-freedom.png`],
+    url: `${SITE.domain}/about-freedom`,
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Length overall", value: `${BOAT.loaFt} / ${BOAT.loaM}` },
+      { "@type": "PropertyValue", name: "Beam", value: `${BOAT.beamFt} / ${BOAT.beamM}` },
+      { "@type": "PropertyValue", name: "Draft", value: `${BOAT.draftFt} / ${BOAT.draftM}` },
+      { "@type": "PropertyValue", name: "Cabins", value: String(BOAT.cabins) },
+      { "@type": "PropertyValue", name: "Heads", value: String(BOAT.heads) },
+      { "@type": "PropertyValue", name: "Guests", value: String(BOAT.guests) },
+      { "@type": "PropertyValue", name: "Engines", value: BOAT.engines },
+      { "@type": "PropertyValue", name: "Home port", value: "Road Town, Tortola, British Virgin Islands" },
+    ],
+    offers: SEASONS.map((s) => ({
+      "@type": "Offer",
+      name: `${s.name} weekly charter`,
+      price: s.weeklyRate,
+      priceCurrency: "USD",
+      description: `${s.ranges.join("; ")} — per week, whole yacht, bareboat`,
+      availability: "https://schema.org/InStock",
+      url: `${SITE.domain}/pricing-and-inquiries`,
+      seller: { "@id": `${SITE.domain}/#org` },
+    })),
+  };
+  if (reviews.length) {
+    const avg = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
+    base.aggregateRating = { "@type": "AggregateRating", ratingValue: Math.round(avg * 10) / 10, reviewCount: reviews.length, bestRating: 5, worstRating: 1 };
+    base.review = reviews.slice(0, 10).map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.guest_name },
+      datePublished: r.created_at.slice(0, 10),
+      reviewBody: r.body,
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+    }));
+  }
+  return base;
+}
 
 export const faqLd = {
   "@context": "https://schema.org",

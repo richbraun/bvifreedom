@@ -3,18 +3,19 @@ import Photo from "@/components/Photo";
 import JsonLd from "@/components/JsonLd";
 import { IMAGES } from "@/lib/images";
 import { BOAT, SEASONS, SITE, WHY_BVI } from "@/lib/content";
-import { productLd } from "@/lib/schema";
-import { approvedPhotos } from "@/lib/db";
+import { charterLd } from "@/lib/schema";
+import { approvedPhotos, approvedReviews } from "@/lib/db";
 
 export const revalidate = 3600;
 
 export default async function Home() {
   const minRate = Math.min(...SEASONS.map((s) => s.weeklyRate));
   const recent = await approvedPhotos(6).catch(() => []);
+  const reviews = await approvedReviews();
 
   return (
     <>
-      <JsonLd data={productLd} />
+      <JsonLd data={charterLd(reviews)} />
 
       {/* Hero */}
       <section className="relative isolate min-h-[92vh] overflow-hidden bg-ink text-white">

@@ -5,7 +5,11 @@ import PageHero from "@/components/PageHero";
 import InquiryForm from "@/components/InquiryForm";
 import { IMAGES } from "@/lib/images";
 import { PRESS_REVIEWS, PRICING_NOTES, SEASONS, SITE, TESTIMONIALS } from "@/lib/content";
-import { breadcrumb, productLd } from "@/lib/schema";
+import { breadcrumb, charterLd } from "@/lib/schema";
+import { approvedReviews } from "@/lib/db";
+import Stars from "@/components/Stars";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Pricing & Inquiries — BVI catamaran charter rates from $14,000/week",
@@ -14,10 +18,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pricing-and-inquiries" },
 };
 
-export default function Pricing() {
+export default async function Pricing() {
+  const reviews = await approvedReviews();
+  const avg = reviews.length ? reviews.reduce((a, r) => a + r.rating, 0) / reviews.length : 0;
   return (
     <>
-      <JsonLd data={[productLd, breadcrumb([{ name: "Home", path: "/" }, { name: "Pricing & Inquiries", path: "/pricing-and-inquiries" }])]} />
+      <JsonLd data={[charterLd(reviews), breadcrumb([{ name: "Home", path: "/" }, { name: "Pricing & Inquiries", path: "/pricing-and-inquiries" }])]} />
       <PageHero kicker="Pricing" title="How much does a week on Freedom cost?">
         Between <strong className="font-semibold text-white">$14,000 and $18,000 per week</strong>, depending on the season — the whole catamaran,
         five ensuite cabins, up to 10 guests. Rates are bareboat; a captain or chef can be added.
@@ -72,6 +78,24 @@ export default function Pricing() {
               </a>
             ))}
           </div>
+
+          {reviews.length > 0 && (
+            <>
+              <h2 className="mt-20">What guests say about Freedom</h2>
+              <div className="mt-3 flex items-center gap-3 text-ink/70">
+                <Stars value={avg} /> <span>{avg.toFixed(1)} from {reviews.length} guest review{reviews.length === 1 ? "" : "s"}</span>
+              </div>
+              <div className="mt-8 grid gap-8 md:grid-cols-3">
+                {reviews.slice(0, 9).map((r) => (
+                  <figure key={r.id} className="rule pt-5">
+                    <Stars value={r.rating} />
+                    <blockquote className="mt-3 text-ink/85">“{r.body}”</blockquote>
+                    <figcaption className="mt-3 text-sm text-ink/55">{r.guest_name}{r.sailed_week ? `, ${r.sailed_week}` : ""}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </>
+          )}
 
           <h2 className="mt-20">What guests say about {SITE.operator.name}</h2>
           <div className="mt-10 grid gap-10 md:grid-cols-3">

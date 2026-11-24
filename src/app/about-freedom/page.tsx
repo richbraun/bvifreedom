@@ -5,7 +5,10 @@ import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
 import { IMAGES } from "@/lib/images";
 import { BOAT, COMFORT_FEATURES, SAILING_FEATURES } from "@/lib/content";
-import { breadcrumb, productLd } from "@/lib/schema";
+import { breadcrumb, charterLd } from "@/lib/schema";
+import { approvedReviews } from "@/lib/db";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "About Freedom — 2024 Fountaine Pajot Aura 51 Maestro, 5 cabins",
@@ -42,10 +45,11 @@ function FeatureList({ items }: { items: string[] }) {
   );
 }
 
-export default function AboutFreedom() {
+export default async function AboutFreedom() {
+  const reviews = await approvedReviews();
   return (
     <>
-      <JsonLd data={[productLd, breadcrumb([{ name: "Home", path: "/" }, { name: "About Freedom", path: "/about-freedom" }])]} />
+      <JsonLd data={[charterLd(reviews), breadcrumb([{ name: "Home", path: "/" }, { name: "About Freedom", path: "/about-freedom" }])]} />
       <PageHero image={IMAGES.about1} kicker="The yacht" title="Freedom" tall>
         A {BOAT.year} {BOAT.builder} {BOAT.model}, {BOAT.edition} edition — {BOAT.cabins} private cabins, each with its own head,
         for up to {BOAT.guests} guests. {BOAT.loaFt} long, {BOAT.beamFt} wide, offered bareboat or with a captain.
