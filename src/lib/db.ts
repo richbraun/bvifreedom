@@ -50,5 +50,5 @@ export async function approvedReviews(limit = 50): Promise<GuestReview[]> {
     const rows = await sql()`select id, guest_name, rating, body, sailed_week, status, created_at
       from guest_reviews where status = 'approved' order by created_at desc limit ${limit}`;
     return rows as GuestReview[];
-  } catch { return []; }
+  } catch (e) { console.error("approvedReviews failed:", e); return []; }
 }

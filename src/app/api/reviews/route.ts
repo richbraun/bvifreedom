@@ -3,6 +3,18 @@ import { ensureReviewsTable, sql } from "@/lib/db";
 import { notifyOwner } from "@/lib/notify";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+/** Public: approved reviews (also a diagnostic for the pages that render them). */
+export async function GET() {
+  try {
+    await ensureReviewsTable();
+    const rows = await sql()`select id, guest_name, rating, body, sailed_week, created_at from guest_reviews where status = 'approved' order by created_at desc limit 50`;
+    return NextResponse.json({ ok: true, count: rows.length, reviews: rows });
+  } catch (e) {
+    return NextResponse.json({ ok: false, error: String((e as Error).message ?? e) }, { status: 500 });
+  }
+}
 const clean = (v: unknown, n: number) => (typeof v === "string" ? v.trim().slice(0, n) : "");
 
 export async function POST(req: Request) {
