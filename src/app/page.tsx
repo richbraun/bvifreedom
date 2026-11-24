@@ -19,13 +19,13 @@ export default async function Home() {
       <JsonLd data={charterLd(reviews)} />
 
       {/* Hero */}
-      <section className="relative isolate min-h-[92vh] overflow-hidden bg-ink text-white">
+      <section className="relative isolate min-h-[92vh] bg-ink text-white">
         <Photo image={IMAGES.home1} priority className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/35 to-ink/20" />
-        <div className="container-x flex min-h-[92vh] flex-col justify-end pb-36 pt-48 md:pb-40">
+        <div className="container-x flex min-h-[92vh] flex-col justify-end pb-28 pt-48 md:pb-32">
           <p className="kicker rise text-white/90">A private catamaran charter in the British Virgin Islands</p>
           <h1 className="rise-2 mt-3 max-w-5xl text-[3.2rem] leading-[0.98] md:text-[5.5rem]">
-            Up to 10 crew. Sixty islands. One boat called Freedom.
+            Sixty islands. Up to 10 crew. One boat called Freedom.
           </h1>
           <p className="rise-3 lead mt-6 max-w-xl !text-white/85">
             A {BOAT.year} Fountaine Pajot Aura 51 with five private cabins, sailed by you or by a captain we arrange.
@@ -35,8 +35,11 @@ export default async function Home() {
             <Link href="/about-freedom" className="btn-outline">See the boat</Link>
           </div>
         </div>
-        {/* facts bar */}
-        <div className="container-x absolute inset-x-0 bottom-0 translate-y-1/2">
+      </section>
+
+      {/* facts bar — straddles the hero's bottom edge */}
+      <section className="relative z-10 -mt-14 md:-mt-16">
+        <div className="container-x">
           <dl className="glass mx-auto grid max-w-4xl grid-cols-2 divide-x divide-line rounded-xl text-ink md:grid-cols-4">
             {[
               ["Length", BOAT.loaFt],
@@ -54,7 +57,7 @@ export default async function Home() {
       </section>
 
       {/* The boat */}
-      <section className="container-x grid items-center gap-12 pb-24 pt-32 md:pt-40 lg:grid-cols-12">
+      <section className="container-x grid items-center gap-12 pb-24 pt-20 md:pt-28 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <p className="kicker">The yacht</p>
           <h2 className="mt-2">Villa-sized space in a boat a couple can sail.</h2>
