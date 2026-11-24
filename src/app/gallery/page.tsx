@@ -21,7 +21,7 @@ export default async function Gallery() {
     "@type": "ImageGallery",
     name: "Life Aboard Freedom — guest photos",
     url: `${SITE.domain}/gallery`,
-    image: photos.slice(0, 50).map((p) => ({ "@type": "ImageObject", contentUrl: p.url, caption: p.caption ?? undefined, datePublished: p.created_at })),
+    image: photos.slice(0, 50).map((p) => ({ "@type": "ImageObject", contentUrl: p.url, caption: p.caption ?? undefined, datePublished: new Date(p.created_at).toISOString() })),
   };
   return (
     <>

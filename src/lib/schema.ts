@@ -74,7 +74,7 @@ export function charterLd(reviews: GuestReview[] = []) {
     base.review = reviews.slice(0, 10).map((r) => ({
       "@type": "Review",
       author: { "@type": "Person", name: r.guest_name },
-      datePublished: r.created_at.slice(0, 10),
+      datePublished: new Date(r.created_at).toISOString().slice(0, 10),
       reviewBody: r.body,
       reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
     }));

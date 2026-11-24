@@ -32,7 +32,7 @@ export type GuestReview = {
   body: string;
   sailed_week: string | null;
   status: "pending" | "approved" | "rejected";
-  created_at: string;
+  created_at: string | Date;
 };
 
 /** Creates the reviews table on first use so no manual migration is needed. */
