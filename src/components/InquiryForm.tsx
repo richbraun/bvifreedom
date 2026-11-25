@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 
 export default function InquiryForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -11,7 +12,7 @@ export default function InquiryForm() {
     const fd = new FormData(e.currentTarget);
     const body = Object.fromEntries(fd.entries());
     const res = await fetch("/api/inquire", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    if (res.ok) setState("sent");
+    if (res.ok) { setState("sent"); track("inquiry_submitted"); }
     else { setErr((await res.json().catch(() => ({}))).error ?? "Something went wrong."); setState("error"); }
   }
 

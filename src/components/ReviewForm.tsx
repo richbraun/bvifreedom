@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 
 export default function ReviewForm() {
   const [rating, setRating] = useState(0);
@@ -15,7 +16,7 @@ export default function ReviewForm() {
     const res = await fetch("/api/reviews", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ rating, guest_name: fd.get("guest_name"), body: fd.get("body"), sailed_week: fd.get("sailed_week"), website: fd.get("website") }) });
     const j = await res.json().catch(() => ({}));
-    if (res.ok) setState("done"); else { setState("error"); setMsg(j.error ?? "Something went wrong."); }
+    if (res.ok) { setState("done"); track("review_submitted", { rating }); } else { setState("error"); setMsg(j.error ?? "Something went wrong."); }
   }
 
   if (state === "done") {
